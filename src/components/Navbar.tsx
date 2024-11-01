@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import ThemeToggle from './ThemToggle';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,13 +23,17 @@ const Navbar: React.FC = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
 
+
   return (
     <nav className="bg-gray-800  text-white px-4 py-3 shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" legacyBehavior>
-          <a className="text-xl font-semibold">MyLogo</a>
-        </Link>
+        <div className='flex justify-center items-center space-x-3'>
+          <Link href="/" legacyBehavior>
+            <a className="text-xl font-semibold">MyLogo</a>
+          </Link>
+          <ThemeToggle />
+        </div>
 
         {/* Menu items for desktop */}
         <ul className="hidden md:flex justify-center items-center space-x-4">
