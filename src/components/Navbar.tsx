@@ -1,6 +1,6 @@
 // components/Navbar.tsx
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const Navbar: React.FC = () => {
@@ -10,8 +10,20 @@ const Navbar: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && !(event.target as HTMLElement).closest('.navbar')) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isOpen]);
+
   return (
-    <nav className="bg-gray-800 text-white px-4 py-3 shadow-md fixed top-0 left-0 w-full z-50">
+    <nav className="bg-gray-800  text-white px-4 py-3 shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" legacyBehavior>
@@ -19,20 +31,21 @@ const Navbar: React.FC = () => {
         </Link>
 
         {/* Menu items for desktop */}
-        <ul className="hidden md:flex space-x-6">
+        <ul className="hidden md:flex justify-center items-center space-x-4">
           <Link href="/">
-            <li className="hover:text-gray-400">Home</li>
+            <li className="hover:text-gray-400 flex items-center  border-b-4 border-transparent hover:border-red-700 transition duration-200">Home</li>
           </Link>
           <Link href="/about">
-            <li className="hover:text-gray-400">About</li>
+            <li className="hover:text-gray-400 flex items-center  border-b-4 border-transparent hover:border-red-700 transition duration-200">About</li>
           </Link>
           <Link href="/services">
-            <li className="hover:text-gray-400">Services</li>
+            <li className="hover:text-gray-400 flex items-center  border-b-4 border-transparent hover:border-red-700 transition duration-200">Services</li>
           </Link>
           <Link href="/contact">
-            <li className="hover:text-gray-400">Contact</li>
+            <li className="hover:text-gray-400 flex items-center  border-b-4 border-transparent hover:border-red-700 transition duration-200">Contact</li>
           </Link>
         </ul>
+
 
         {/* Mobile menu button */}
         <button
