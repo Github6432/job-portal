@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden focus:outline-none text-gray-300"
+          className="md:hidden focus:outline-none text-gray-800 dark:text-white"
           onClick={toggleMenu}
         >
           <svg
