@@ -11,16 +11,28 @@ const Navbar: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && !(event.target as HTMLElement).closest('.navbar')) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isOpen]);
+
+
   return (
     <nav className="bg-gray-800  text-white px-4 py-3 shadow-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <div className='flex justify-center items-center space-x-3'>
-        <Link href="/" legacyBehavior>
-          <a className="text-xl font-semibold">MyLogo</a>
-        </Link>
-        <ThemeToggle />
+          <Link href="/" legacyBehavior>
+            <a className="text-xl font-semibold">MyLogo</a>
+          </Link>
+          <ThemeToggle />
         </div>
 
         {/* Menu items for desktop */}
