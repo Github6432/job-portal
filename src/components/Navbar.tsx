@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile menu items */}
       {isOpen && (
-        <ul className="absolute right-3 top-12 md:hidden bg-gray-700 ml-auto mt-2 w-2/3 flex flex-col items-start px-4 py-2 space-y-1">
+        <ul className="absolute right-8 top-12 md:hidden bg-gray-100 ml-auto mt-2 w-6/12 flex flex-col items-start px-4 py-2 space-y-1">
           <button onClick={toggleMenu}>
             <svg
               className="absolute w-6 h-6"
