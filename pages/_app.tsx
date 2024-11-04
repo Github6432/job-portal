@@ -1,6 +1,17 @@
+import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
+
 import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <div className="mt-20">
+        <Navbar />
+      </div>
+      <div className="mx-10">
+        <Component {...pageProps} />
+      </div>
+    </>
+  );
 }
