@@ -25,3 +25,9 @@ body {
   --background: #1f2937;
   --foreground: #ededed;
 }
+
+/* @media (min-width: 768px) {
+  .md\:flex {
+    display: none;
+  }
+} */
