@@ -22,6 +22,6 @@ body {
 
 /* Ensure the dark class overrides root variables */
 .dark {
-  --background: #1f2937;
+  --background: #0f141c;
   --foreground: #ededed;
 }
