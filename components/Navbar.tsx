@@ -1,6 +1,6 @@
 // components/Navbar.tsx
 "use client";
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 
@@ -45,16 +45,16 @@ const Navbar: React.FC = () => {
 
         {/* Menu items for desktop */}
         <ul className="hidden md:flex justify-center items-center space-x-4">
-          <Link href="/" passHref>
+          <Link href="/">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Home</li>
           </Link>
-          <Link href="/about" passHref>
+          <Link href="/about">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">About</li>
           </Link>
-          <Link href="/services passHref">
+          <Link href="/services">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Services</li>
           </Link>
-          <Link href="/contact" passHref>
+          <Link href="/contact">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Contact</li>
           </Link>
         </ul>
