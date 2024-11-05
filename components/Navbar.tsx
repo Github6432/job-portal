@@ -45,19 +45,21 @@ const Navbar: React.FC = () => {
 
         {/* Menu items for desktop */}
         <ul className="hidden md:flex justify-center items-center space-x-4">
-          <Link href="/">
+          <Link href="/" passHref>
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Home</li>
           </Link>
-          <Link href="/about">
+          <Link href="/about" passHref>
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">About</li>
           </Link>
-          <Link href="/services">
+          <Link href="/services passHref">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Services</li>
           </Link>
-          <Link href="/contact">
+          <Link href="/contact" passHref>
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Contact</li>
           </Link>
         </ul>
+
+
 
 
 
