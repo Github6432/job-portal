@@ -11,7 +11,7 @@ export default function Home() {
         <div className=" mb-10">
           <Topmenu />
         </div>
-        <div className="mx-auto ">
+        <div className="">
           <Card />
         </div>
         <div className="mx-auto ">
