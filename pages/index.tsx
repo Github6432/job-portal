@@ -17,8 +17,8 @@ export default function Home() {
         <div className="">
           <Govtlinks />
         </div>
-        <div className="mx-auto  bg-gray-400 text-center">
-          {/* <Footer /> */}
+        <div className="">
+          <Footer />
         </div>  
       </main>
     </>
