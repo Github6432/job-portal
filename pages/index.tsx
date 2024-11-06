@@ -1,5 +1,7 @@
+import Footer from "@/components/Footer";
 import Card from "./mainhome/Card";
 import Topmenu from "./mainhome/Topmenu";
+import Govtlinks from "./mainhome/Govtlinks";
 
 
 export default function Home() {
@@ -10,8 +12,14 @@ export default function Home() {
           <Topmenu />
         </div>
         <div className="my-6">
-        <Card />
+          <Card />
         </div>
+        <div className="my-6">
+          <Govtlinks />
+        </div>
+        <div className="my-6 bg-gray-400 text-center">
+          <Footer />
+        </div>  
       </main>
     </>
   );

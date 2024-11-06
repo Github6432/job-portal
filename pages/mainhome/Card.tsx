@@ -21,7 +21,7 @@ const Card = () => {
                     <p>PM Internship 2024</p>
                     <p>Apply Online</p>
                 </div>
-                <div className="bg-black m-1 p-2">
+                <div className="bg-black text-red-500 m-1 p-2">
                     <p>PM Internship 2024</p>
                     <p>Apply Online</p>
                 </div>
@@ -45,7 +45,7 @@ const Card = () => {
                     <p>PM Internship 2024</p>
                     <p>Apply Online</p>
                 </div>
-                <div className="bg-black m-1 p-2">
+                <div className="bg-black text-red-500 m-1 p-2">
                     <p>PM Internship 2024</p>
                     <p>Apply Online</p>
                 </div>
