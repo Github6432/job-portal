@@ -1,12 +1,14 @@
+// models/userSchema.ts
+
 import mongoose, { Document, Schema } from 'mongoose';
 
 // User के लिए TypeScript का इंटरफेस
-interface IUser extends Document {
+export interface IUser extends Document { // Use `export` here
     userId: string;
     name: string;
     email: string;
     password: string;
-    phoneNumber?: Number;
+    phoneNumber?: number;
     role: 'user' | 'admin' | 'employee' | 'sr_employee' | 'supervisor' | 'hr' | 'tl' | 'manager' | 'share_holder' | 'owner';
     permissions?: string[];
     profileImage?: string;
@@ -16,13 +18,11 @@ interface IUser extends Document {
         city?: string;
         state?: string;
         country?: string;
-        pincode?: Number;
+        pincode?: number;
         landmark?: string;
     };
     isVerified: boolean;
     status: 'active' | 'suspended' | 'deleted';
-    createdAt: Date;
-    updatedAt: Date;
     notificationsEnabled: boolean;
     notificationPreferences?: string[];
     lastLogin?: Date;
@@ -61,8 +61,6 @@ const UserSchema: Schema = new Schema({
         enum: ['active', 'suspended', 'deleted'],
         default: 'active'
     },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
     notificationsEnabled: { type: Boolean, default: true },
     notificationPreferences: [{ type: String }],
     lastLogin: { type: Date },
@@ -72,7 +70,8 @@ const UserSchema: Schema = new Schema({
             ipAddress: { type: String }
         }
     ],
-});
+}, { timestamps: true, });
 
 // Model बनाएं और एक्सपोर्ट करें
-export default mongoose.model<IUser>('User', UserSchema);
+const User = mongoose.model<IUser>('User', UserSchema);
+export default User;
