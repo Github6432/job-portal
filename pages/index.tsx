@@ -12,7 +12,7 @@ export default function Home() {
           <Topmenu />
         </div>
         <div className="mx-auto ">
-          {/* <Card /> */}
+          <Card />
         </div>
         <div className="mx-auto ">
           {/* <Govtlinks /> */}

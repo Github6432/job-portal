@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="px-4 bg-white bg-opacity-95 dark:bg-opacity-95 dark:bg-gray-900 py-3 shadow-xl fixed top-0 left-0 w-full z-10">
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="container md:w-4/5 mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <div className='flex justify-center items-center space-x-3'>
           <Link href="/" legacyBehavior>
