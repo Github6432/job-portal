@@ -6,8 +6,9 @@ import type { AppProps } from "next/app";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <div className="mt-20">
+      <div className="mt-16">
         <Navbar />
+        <hr />
       </div>
       <div className="mx-10">
         <Component {...pageProps} />

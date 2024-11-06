@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const About: React.FC = () => {
@@ -11,8 +12,8 @@ const About: React.FC = () => {
       </div>
 
       <div className="flex justify-center mb-8">
-        <img
-          src="https://images.unsplash.com/photo-1653669487003-7d89b2020f3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Unsplash img
+        <Image
+          src="https://images.unsplash.com/photo-1653669487003-7d89b2020f3c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Unsplash Image
           alt="About Us"
           width={600} // Adjust width as needed
           height={400} // Adjust height as needed
@@ -31,8 +32,8 @@ const About: React.FC = () => {
       <h2 className="text-3xl font-semibold mb-4">Meet Our Team</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 border dark:border-red-200 shadow-inherit rounded-lg shadow-lg">
-          <img
-            src="https://images.unsplash.com/photo-1498758536662-35b82cd15e29?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Team member img
+          <Image
+            src="https://images.unsplash.com/photo-1498758536662-35b82cd15e29?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Team member Image
             alt="Team Member 1"
             width={200} // Adjust width as needed
             height={200} // Adjust height as needed
@@ -43,8 +44,8 @@ const About: React.FC = () => {
         </div>
 
         <div className="p-4 border dark:border-red-200 shadow-inherit rounded-lg shadow-md">
-          <img
-            src="https://images.unsplash.com/photo-1496440737103-cd596325d314?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Team member img
+          <Image
+            src="https://images.unsplash.com/photo-1496440737103-cd596325d314?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Team member Image
             alt="Team Member 2"
             width={200}
             height={200}
@@ -55,8 +56,8 @@ const About: React.FC = () => {
         </div>
 
         <div className="p-4 border dark:border-red-200 shadow-inherit rounded-lg shadow-md">
-          <img
-            src="https://images.unsplash.com/photo-1618517351616-38fb9c5210c6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Team member img
+          <Image
+            src="https://images.unsplash.com/photo-1618517351616-38fb9c5210c6?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Team member Image
             alt="Team Member 3"
             width={200}
             height={200}

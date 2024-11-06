@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 const Contact: React.FC = () => {
@@ -5,7 +6,7 @@ const Contact: React.FC = () => {
     <div className=" flex flex-col md:flex-row items-center justify-center">
       {/* Left Side: Image and Contact Details */}
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-6">
-        <img
+        <Image
           src="https://media.istockphoto.com/id/1359556773/photo/shot-of-a-young-call-centre-agent-working-on-a-computer-in-an-office-with-her-colleague-in.jpg?s=1024x1024&w=is&k=20&c=5nGA1MMOxiDu2-qVO9tRXHlq0bgf9oW1Ylm2vLRUD6s=" // Sample image from Unsplash
           alt="Contact Us"
           width={500}
