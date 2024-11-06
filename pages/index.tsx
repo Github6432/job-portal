@@ -1,3 +1,4 @@
+import Card from "./mainhome/Card";
 import Topmenu from "./mainhome/Topmenu";
 
 
@@ -8,7 +9,9 @@ export default function Home() {
         <div className=" bg-red-500">
           <Topmenu />
         </div>
-        <div></div>
+        <div className="my-6">
+        <Card />
+        </div>
       </main>
     </>
   );
