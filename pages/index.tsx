@@ -8,17 +8,17 @@ export default function Home() {
   return (
     <>
       <main>
-        <div className=" bg-red-500">
+        <div className=" mb-10">
           <Topmenu />
         </div>
-        <div className="my-6">
-          <Card />
+        <div className="mx-auto ">
+          {/* <Card /> */}
         </div>
-        <div className="my-6">
-          <Govtlinks />
+        <div className="mx-auto ">
+          {/* <Govtlinks /> */}
         </div>
-        <div className="my-6 bg-gray-400 text-center">
-          <Footer />
+        <div className="mx-auto  bg-gray-400 text-center">
+          {/* <Footer /> */}
         </div>  
       </main>
     </>

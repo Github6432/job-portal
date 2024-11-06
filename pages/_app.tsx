@@ -6,11 +6,12 @@ import type { AppProps } from "next/app";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <div className="mt-16">
+      <div className="">
         <Navbar />
-        <hr />
+        <br />
+        <br />
       </div>
-      <div className="mx-10">
+      <div className="md:mx-auto mx-2 md:w-3/4">
         <Component {...pageProps} />
       </div>
     </>
