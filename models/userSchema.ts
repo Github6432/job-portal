@@ -6,11 +6,13 @@ import mongoose, { Document, Schema } from 'mongoose';
 export interface IUser extends Document { // Use `export` here
     userId: string;
     name: string;
+    middleName: string;
+    lastName: string;
     email: string;
     password: string;
     phoneNumber?: number;
     role: 'user' | 'admin' | 'employee' | 'sr_employee' | 'supervisor' | 'hr' | 'tl' | 'manager' | 'share_holder' | 'owner';
-    permissions?: string[];
+    permissions?: boolean;
     profileImage?: string;
     dob?: Date;
     address?: {
@@ -34,8 +36,9 @@ export interface IUser extends Document { // Use `export` here
 
 // User के लिए Mongoose स्कीमा
 const UserSchema: Schema = new Schema({
-    userId: { type: String, unique: true, required: true },
     name: { type: String, required: true },
+    middleName: { type: String },
+    lastName: { type: String },
     email: { type: String },
     password: { type: String, required: true },
     phoneNumber: { type: Number, unique: true, required: true },
@@ -44,7 +47,11 @@ const UserSchema: Schema = new Schema({
         enum: ['user', 'admin', 'employee', 'sr_employee', 'supervisor', 'hr', 'tl', 'manager', 'share_holder', 'owner'],
         default: 'user'
     },
-    permissions: [{ type: String }],
+    permissions: {
+        type: String,
+        enum: [{type:String}],
+        default: 'user'
+    },
     profileImage: { type: String },
     dob: { type: Date },
     address: {
@@ -61,7 +68,7 @@ const UserSchema: Schema = new Schema({
         enum: ['active', 'suspended', 'deleted'],
         default: 'active'
     },
-    notificationsEnabled: { type: Boolean, default: true },
+    notificationsEnabled: { type: Boolean, default: false },
     notificationPreferences: [{ type: String }],
     lastLogin: { type: Date },
     loginHistory: [
