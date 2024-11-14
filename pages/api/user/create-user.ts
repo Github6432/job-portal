@@ -21,20 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const { users }: { users: IUser[] } = req.body;
         try {
             const customSalt: string = process.env.MY_SECRET_PHRASE || '';
-
-            // Step 1: Check for existing users
-            const phoneNumbers = users.map(user => user.phoneNumber);
-            const existingUsers = await User.find({ phoneNumber: { $in: phoneNumbers } });
-
-            if (existingUsers.length > 0) {
-                const existingPhoneNumbers = existingUsers.map(user => user.phoneNumber);
-                return res.status(400).json({
-                    success: false,
-                    message: `Users with phone numbers ${existingPhoneNumbers.join(', ')} already registered.`,
-                });
-            }
-
-            // Step 2: Hash all user passwords concurrently
+            // Step 1: Hash all user passwords concurrently
             const hashedUsers = await Promise.all(
                 users.map(async (user) => {
                     const saltedPassword = customSalt + user.password;
@@ -43,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 })
             );
 
-            // Step 3: Insert users in batches to avoid large database writes
+            // Step 2: Insert users in batches to avoid large database writes
             for (let i = 0; i < hashedUsers.length; i += batchSize) {
                 const batch = hashedUsers.slice(i, i + batchSize);
                 await User.insertMany(batch);

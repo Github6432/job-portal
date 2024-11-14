@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>CodesWear.com - wear the code</title>
+        <title>mylogo.com - my logo</title>
         <meta name="description" content="govtlinks.com - all govt link available here" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

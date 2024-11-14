@@ -52,7 +52,7 @@ const CreateUser: React.FC = () => {
                         name="name"
                         placeholder="Name"
                         value={formData.name}
-                        minLength={12}
+                        minLength={3}
                         required
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
@@ -62,7 +62,7 @@ const CreateUser: React.FC = () => {
                         name="middleName"
                         placeholder="Middle Name"
                         value={formData.middleName}
-                        minLength={12}
+                        minLength={3}
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                     />
@@ -71,7 +71,7 @@ const CreateUser: React.FC = () => {
                         name="lastName"
                         placeholder="Last Name"
                         value={formData.lastName}
-                        minLength={12}
+                        minLength={3}
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                     />
@@ -131,13 +131,14 @@ const CreateUser: React.FC = () => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                 >
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
+                    <option className='dark:text-gray-500' value="user">User</option>
+                    <option className='dark:text-gray-500' value="admin">Admin</option>
                 </select>
 
                 <input
                     type="date"
                     name="dob"
+                    required
                     value={formData.dob}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"

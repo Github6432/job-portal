@@ -30,9 +30,9 @@ const ThemeToggle = () => {
     return (
         <button onClick={toggleTheme} className="p-2">
             {isDarkMode ? (
-                <MoonIcon className="text-yellow-500" />
+                <MoonIcon className="text-black-500" />
             ) : (
-                <SunIcon className="text-black-500" />
+                <SunIcon className="text-yellow-500" />
             )}
         </button>
     );

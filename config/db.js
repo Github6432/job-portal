@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import "colors"
+import "colors";
 
 let isConnected = false; // Track connection status
 const connectdb = async () => {

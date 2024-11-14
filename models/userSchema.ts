@@ -4,7 +4,6 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 // User के लिए TypeScript का इंटरफेस
 export interface IUser extends Document { // Use `export` here
-    userId: string;
     name: string;
     middleName: string;
     lastName: string;
@@ -12,7 +11,7 @@ export interface IUser extends Document { // Use `export` here
     password: string;
     phoneNumber?: number;
     role: 'user' | 'admin' | 'employee' | 'sr_employee' | 'supervisor' | 'hr' | 'tl' | 'manager' | 'share_holder' | 'owner';
-    permissions?: boolean;
+    permissions?: string;
     profileImage?: string;
     dob?: Date;
     address?: {
@@ -24,7 +23,7 @@ export interface IUser extends Document { // Use `export` here
         landmark?: string;
     };
     isVerified: boolean;
-    status: 'active' | 'suspended' | 'deleted';
+    status: 'active' | 'suspended' | 'deleted' | 'inactive';
     notificationsEnabled: boolean;
     notificationPreferences?: string[];
     lastLogin?: Date;
@@ -49,9 +48,10 @@ const UserSchema: Schema = new Schema({
     },
     permissions: {
         type: String,
-        enum: [{type:String}],
+        enum: ['user', 'admin', 'employee'],
         default: 'user'
     },
+
     profileImage: { type: String },
     dob: { type: Date },
     address: {
@@ -65,7 +65,7 @@ const UserSchema: Schema = new Schema({
     isVerified: { type: Boolean, default: false },
     status: {
         type: String,
-        enum: ['active', 'suspended', 'deleted'],
+        enum: ['active', 'suspended', 'deleted', 'inactive'],  // Added "inactive" here
         default: 'active'
     },
     notificationsEnabled: { type: Boolean, default: false },
