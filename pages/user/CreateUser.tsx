@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 const CreateUser: React.FC = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
     const [formData, setFormData] = useState({
         userId: '',
         name: '',
@@ -9,25 +11,21 @@ const CreateUser: React.FC = () => {
         email: '',
         password: '',
         re_password: '',
-        phoneNumber: undefined,
+        phoneNumber: '',
         role: '',
         permissions: [],
         profileImage: '',
-        dob: undefined,
+        dob: '',
         address: {
             village: '',
             city: '',
             state: '',
             country: '',
-            pincode: undefined,
+            pincode: '',
             landmark: '',
         },
-        isVerified: false,
-        status: '',
         notificationsEnabled: false,
-        notificationPreferences: undefined,
-        lastLogin: undefined,
-        loginHistory: [],
+        notificationPreferences: [],
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -35,10 +33,25 @@ const CreateUser: React.FC = () => {
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
         // Process form submission here (e.g., send formData to API)
-        console.log(formData);
+        console.log('FORMDATA', formData);
+        console.log('ooooooooook')
+        try {
+            const response = await fetch('/api/user/create-user', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user: formData }),
+            });
+            const resData = await response.json();
+            if (response.ok) {
+                console.log(resData);
+            } else {
+                console.error('Error:', resData);
+            }
+        } catch (error) {
+            console.error('Request failed:', error);
+        }
     };
 
     return (
@@ -47,109 +60,228 @@ const CreateUser: React.FC = () => {
             <form onSubmit={handleSubmit} className=" text-xs space-y-4">
                 {/* Name */}
                 <div className='flex space-x-2'>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        value={formData.name}
-                        minLength={3}
-                        required
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
-                    <input
-                        type="text"
-                        name="middleName"
-                        placeholder="Middle Name"
-                        value={formData.middleName}
-                        minLength={3}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
-                    <input
-                        type="text"
-                        name="lastName"
-                        placeholder="Last Name"
-                        value={formData.lastName}
-                        minLength={3}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
+                    <div className='space-y-1'>
+                        <label htmlFor="name" className="text-sm font-medium ml-1 ">Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            value={formData.name}
+                            minLength={3}
+                            required
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                        />
+                    </div>
+                    <div className='space-y-1'>
+                        <label htmlFor="middlename" className="text-sm font- ml-1 medium">Middle Name</label>
+                        <input
+                            type="text"
+                            name="middleName"
+                            placeholder="Middle Name"
+                            value={formData.middleName}
+                            minLength={3}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                        />
+                    </div>
+                    <div className='space-y-1'>
+                        <label htmlFor="lastname" className="text-sm font-me ml-1 dium">Last Name</label>
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder="Last Name"
+                            value={formData.lastName}
+                            minLength={3}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                        />
+                    </div>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex justify-evenly">
                     {/* Email */}
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        pattern="\S+@\S+\.\S+"
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
+                    <div className='space-y-1'>
+                        <label htmlFor="email" className="text-sm font-medium ml-1 ">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            pattern="\S+@\S+\.\S+"
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                        />
+                    </div>
                     {/* Phone Number */}
-                    <input
-                        type="tel"
-                        name="phoneNumber"
-                        placeholder="Phone Number"
-                        value={formData.phoneNumber}
-                        pattern="\d{10}"
-                        required
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
+                    <div className='space-y-1'>
+                        <label htmlFor="phone" className="text-sm font-medium ml-1 ">Phone</label>
+                        <input
+                            type="tel"
+                            name="phoneNumber"
+                            placeholder="Phone Number"
+                            value={formData.phoneNumber || ''}
+                            pattern="\d{10}"
+                            required
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                            autoComplete="new-password"
+                        />
+                    </div>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex justify-evenly">
                     {/* Password */}
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        minLength={6}
-                        required
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
+                    <div className='space-y-1'>
+                        <label htmlFor="password" className="text-sm font-medium ml-1 ">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            minLength={6}
+                            required
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                            autoComplete="new-password"
+                        />
+                    </div>
                     {/* Re-Password */}
-                    <input
-                        type="password"
-                        name="re_password"
-                        placeholder="Confirm Password"
-                        value={formData.password}
-                        minLength={6}
-                        required
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                    />
+                    <div className='space-y-1'>
+                        <label htmlFor="re-password" className="text-sm font-medium ml-1 ">Confirm Password</label>
+                        <input
+                            type="password"
+                            name="re_password"
+                            placeholder="Confirm Password"
+                            value={formData.re_password}
+                            minLength={6}
+                            required
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                            autoComplete="new-password"
+                        />
+                    </div>
                 </div>
 
                 {/* Role */}
-                <select
-                    name="role"
-                    value={formData.role}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                >
-                    <option className='dark:text-gray-500' value="user">User</option>
-                    <option className='dark:text-gray-500' value="admin">Admin</option>
-                </select>
-
-                <input
-                    type="date"
-                    name="dob"
-                    required
-                    value={formData.dob}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                />
+                <div className='space-y-1'>
+                    <label htmlFor="role" className="text-sm font-medium ml-1 ">Role</label>
+                    <select
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                    >
+                        <option className='dark:text-gray-500' value="user">User</option>
+                        <option className='dark:text-gray-500' value="admin">Admin</option>
+                    </select>
+                </div>
+                <div className='space-y-1'>
+                    <label htmlFor="dob" className="text-sm font-medium ml-1 ">Date of Birth</label>
+                    <input
+                        type="date"
+                        name="dob"
+                        required
+                        value={formData.dob}
+                        onChange={handleChange}
+                        className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                    />
+                </div>
+                <div>
+                    <label className="flex items-center space-x-2">
+                        <input
+                            type="radio"
+                            checked={isChecked}
+                            onClick={() => setIsChecked(prev => !prev)}
+                            className="form-radio text-blue-500"
+                        />
+                        <span>Do you want to add your address?</span>
+                    </label>
+                </div>
+                {/* Conditionally render address fields based on isChecked */}
+                {isChecked && (
+                    // <div className="space-y-4 mt-4">
+                    <>
+                        <div className='flex space-x-2'>
+                            <div className="space-y-1">
+                                <label htmlFor="country" className="text-sm font-medium ml-1">Country</label>
+                                <input
+                                    type="text"
+                                    name="country"
+                                    value={formData.address.country}
+                                    placeholder='Country'
+                                    // onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label htmlFor="state" className="text-sm font-medium ml-1">State</label>
+                                <input
+                                    type="text"
+                                    name="state"
+                                    value={formData.address.state}
+                                    placeholder='State'
+                                    // onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label htmlFor="city" className="text-sm font-medium ml-1">City</label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    value={formData.address.city}
+                                    placeholder='City'
+                                    // onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                        </div>
+                        <div className='flex space-x-2'>
+                            <div className="space-y-1">
+                                <label htmlFor="village" className="text-sm font-medium ml-1">Village / Town</label>
+                                <input
+                                    type="text"
+                                    name="village"
+                                    value={formData.address.village}
+                                    placeholder='Village'
+                                    // onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label htmlFor="pincode" className="text-sm font-medium ml-1">Pincode</label>
+                                <input
+                                    type="text"
+                                    name="pincode"
+                                    value={formData.address.pincode}
+                                    placeholder='Pincode'
+                                    // onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                        </div>
+                        <div className='flex space-x-2'>
+                            <div className="space-y-1">
+                                <label htmlFor="landmark" className="text-sm font-medium ml-1">Landmark</label>
+                                <textarea
+                                    name="landmark"
+                                    value={formData.address.landmark}
+                                    // onChange={handleAddressChange}
+                                    placeholder='Landmark.....'
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                        </div>
+                    </>
+                    // Repeat the same for city, state, country, pincode, and landmark
+                )}
 
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
+                    disabled={isSubmitting}
+                    className={`w-full py-2 px-4 rounded ${isSubmitting ? 'bg-gray-400' : 'bg-blue-500'} text-white hover:bg-blue-600 transition`}
                 >
-                    Resiter
+                    {isSubmitting ? 'Submitting...' : 'Register'}
                 </button>
             </form>
         </div>

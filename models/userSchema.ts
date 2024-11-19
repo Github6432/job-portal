@@ -38,20 +38,15 @@ const UserSchema: Schema = new Schema({
     name: { type: String, required: true },
     middleName: { type: String },
     lastName: { type: String },
-    email: { type: String },
+    email: { type: String, unique: true },
     password: { type: String, required: true },
     phoneNumber: { type: Number, unique: true, required: true },
     role: {
         type: String,
         enum: ['user', 'admin', 'employee', 'sr_employee', 'supervisor', 'hr', 'tl', 'manager', 'share_holder', 'owner'],
-        default: 'user'
+        default: 'user',
     },
-    permissions: {
-        type: String,
-        enum: ['user', 'admin', 'employee'],
-        default: 'user'
-    },
-
+    permissions: [{ type: String, enum: ['user', 'admin', 'employee'] }],
     profileImage: { type: String },
     dob: { type: Date },
     address: {
