@@ -17,14 +17,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Find user by email
     const user = await User.findOne({ phoneNumber });
     if (!user) {
-      return res.status(404).json({ message: "Please enter the valid credentials" });
+      return res.status(404).json({success:false, message: "Please enter the valid credentials" });
     }
 
     // Validate password
     const customSalt: string = process.env.MY_SECRET_PHRASE || "";
     const isPasswordValid = await bcrypt.compare(customSalt + password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid phoneNumber or password" });
+      return res.status(401).json({success:false, message: "Invalid phoneNumber or password" });
     }
 
     // Update last login time and IP address
@@ -50,8 +50,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       expiresIn: "10d",
     });
 
-    res.status(201).json({ message: 'Logged IN Successfully', token, currentLogin: { timestamp: currentTime, ipAddress }, lastLogin: previousLogin || "No previous login available", loginHistory: user.loginHistory, });
+    res.status(201).json({success:true, message: 'Logged IN Successfully', token, currentLogin: { timestamp: currentTime, ipAddress }, lastLogin: previousLogin || "No previous login available", loginHistory: user.loginHistory, });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error });
+    res.status(500).json({success:false, message: "Internal server error", error });
   }
 }

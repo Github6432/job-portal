@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
@@ -63,8 +64,16 @@ const CreateUser: React.FC = () => {
     };
 
     return (
-        <div className="w-fit md:w-7/12  mx-auto p-4 my-16 border rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">New User: Sign UP</h2>
+        <div className="w-fit md:w-7/12  mx-auto p-4 my-16 rounded-lg shadow-lg shadow-gray-700">
+            <div className='flex justify-between mx-2'>
+                <h2 className="text-xl font-semibold mb-1">New User: Sign UP</h2>
+                <p className="text-xl mx-10">
+                    <Link href="/user/login" legacyBehavior>
+                        <a className="text-blue-400 font-bold hover:text-blue-500 hover:underline">Login</a>
+                    </Link>
+                </p>
+            </div>
+            <hr className='mb-8 border border-black dark:border-white' />
             <form onSubmit={handleSubmit} className=" text-xs space-y-4">
                 {/* Name */}
                 <div className='flex space-x-2'>
