@@ -1,14 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import bcrypt from 'bcrypt';
 import connectdb from '../../../config/db';
-import User, { IUser } from '../../../models/userSchema';
+import User from '../../../models/userSchema';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     await connectdb();
 
     if (req.method === 'POST') {
         // Extract users from the request body
-        const { phoneNumber }: { phoneNumber: Number } = req.body;
+        const { phoneNumber }: { phoneNumber: number } = req.body;
         try {
             // Step 1: Check for existing users
             const existingUser = await User.findOne({ phoneNumber });

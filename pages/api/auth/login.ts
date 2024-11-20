@@ -50,8 +50,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       expiresIn: "10d",
     });
 
-    res.status(201).json({message:'Logged IN Successfully', token, currentLogin: { timestamp: currentTime, ipAddress }, lastLogin: previousLogin || "No previous login available", loginHistory: user.loginHistory, });
+    res.status(201).json({ message: 'Logged IN Successfully', token, currentLogin: { timestamp: currentTime, ipAddress }, lastLogin: previousLogin || "No previous login available", loginHistory: user.loginHistory, });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", });
+    res.status(500).json({ message: "Internal server error", error });
   }
 }
