@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const CreateUser: React.FC = () => {
     const router = useRouter();
@@ -49,14 +51,34 @@ const CreateUser: React.FC = () => {
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user: formData }),
             });
             const resData = await response.json();
-            if (response.ok) {
-                console.log(resData);
-                alert("Registration mesage is pendig")
+            const { success, message } = resData;
+            if (success) {
+                toast.success(message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Slide,
+                });
                 setTimeout(() => {
                     router.push('/user/login');
-                }, 2000);
+                }, 1800);
             } else {
-                console.error('Error:', resData);
+                toast.error(message, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Slide,
+                });
             }
         } catch (error) {
             console.error('Request failed:', error);
@@ -65,6 +87,19 @@ const CreateUser: React.FC = () => {
 
     return (
         <div className="w-fit md:w-7/12  mx-auto p-4 my-16 rounded-lg shadow-lg shadow-gray-700">
+            <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Slide}
+            />
             <div className='flex justify-between mx-2'>
                 <h2 className="text-xl font-semibold mb-1">New User: Sign UP</h2>
                 <p className="text-xl mx-10">
