@@ -75,5 +75,5 @@ const UserSchema: Schema = new Schema({
 }, { timestamps: true, });
 
 // Model बनाएं और एक्सपोर्ट करें
-const User = mongoose.model<IUser>('User', UserSchema);
+const User = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 export default User;

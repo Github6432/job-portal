@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 const CreateUser: React.FC = () => {
+    const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const [formData, setFormData] = useState({
@@ -32,20 +34,26 @@ const CreateUser: React.FC = () => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, address: { ...prevData.address, [name]: value, }, }));
+    };
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Process form submission here (e.g., send formData to API)
-        console.log('FORMDATA', formData);
-        console.log('ooooooooook')
         try {
-            const response = await fetch('/api/user/create-user', {
+            const response = await fetch('/api/auth/create-user', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user: formData }),
             });
             const resData = await response.json();
             if (response.ok) {
                 console.log(resData);
+                alert("Registration mesage is pendig")
+                setTimeout(() => {
+                    router.push('/user/login');
+                }, 2000);
             } else {
                 console.error('Error:', resData);
             }
@@ -55,7 +63,7 @@ const CreateUser: React.FC = () => {
     };
 
     return (
-        <div className="w-fit mx-auto p-4 my-16 border rounded-lg shadow-md">
+        <div className="w-fit md:w-7/12  mx-auto p-4 my-16 border rounded-lg shadow-md">
             <h2 className="text-xl font-semibold mb-4">New User: Sign UP</h2>
             <form onSubmit={handleSubmit} className=" text-xs space-y-4">
                 {/* Name */}
@@ -98,9 +106,9 @@ const CreateUser: React.FC = () => {
                         />
                     </div>
                 </div>
-                <div className="flex justify-evenly">
+                <div className="flex space-x-4">
                     {/* Email */}
-                    <div className='space-y-1'>
+                    <div className='w-full space-y-1'>
                         <label htmlFor="email" className="text-sm font-medium ml-1 ">Email</label>
                         <input
                             type="email"
@@ -113,7 +121,7 @@ const CreateUser: React.FC = () => {
                         />
                     </div>
                     {/* Phone Number */}
-                    <div className='space-y-1'>
+                    <div className='w-full space-y-1'>
                         <label htmlFor="phone" className="text-sm font-medium ml-1 ">Phone</label>
                         <input
                             type="tel"
@@ -128,9 +136,9 @@ const CreateUser: React.FC = () => {
                         />
                     </div>
                 </div>
-                <div className="flex justify-evenly">
+                <div className="flex space-x-2">
                     {/* Password */}
-                    <div className='space-y-1'>
+                    <div className='w-full space-y-1'>
                         <label htmlFor="password" className="text-sm font-medium ml-1 ">Password</label>
                         <input
                             type="password"
@@ -145,7 +153,7 @@ const CreateUser: React.FC = () => {
                         />
                     </div>
                     {/* Re-Password */}
-                    <div className='space-y-1'>
+                    <div className='w-full space-y-1'>
                         <label htmlFor="re-password" className="text-sm font-medium ml-1 ">Confirm Password</label>
                         <input
                             type="password"
@@ -190,6 +198,7 @@ const CreateUser: React.FC = () => {
                         <input
                             type="radio"
                             checked={isChecked}
+                            readOnly
                             onClick={() => setIsChecked(prev => !prev)}
                             className="form-radio text-blue-500"
                         />
@@ -208,7 +217,7 @@ const CreateUser: React.FC = () => {
                                     name="country"
                                     value={formData.address.country}
                                     placeholder='Country'
-                                    // onChange={handleAddressChange}
+                                    onChange={handleAddressChange}
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />
                             </div>
@@ -219,7 +228,7 @@ const CreateUser: React.FC = () => {
                                     name="state"
                                     value={formData.address.state}
                                     placeholder='State'
-                                    // onChange={handleAddressChange}
+                                    onChange={handleAddressChange}
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />
                             </div>
@@ -230,42 +239,42 @@ const CreateUser: React.FC = () => {
                                     name="city"
                                     value={formData.address.city}
                                     placeholder='City'
-                                    // onChange={handleAddressChange}
+                                    onChange={handleAddressChange}
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />
                             </div>
                         </div>
                         <div className='flex space-x-2'>
-                            <div className="space-y-1">
+                            <div className=" w-full space-y-1">
                                 <label htmlFor="village" className="text-sm font-medium ml-1">Village / Town</label>
                                 <input
                                     type="text"
                                     name="village"
                                     value={formData.address.village}
                                     placeholder='Village'
-                                    // onChange={handleAddressChange}
+                                    onChange={handleAddressChange}
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />
                             </div>
-                            <div className="space-y-1">
+                            <div className="w-full space-y-1">
                                 <label htmlFor="pincode" className="text-sm font-medium ml-1">Pincode</label>
                                 <input
                                     type="text"
                                     name="pincode"
                                     value={formData.address.pincode}
                                     placeholder='Pincode'
-                                    // onChange={handleAddressChange}
+                                    onChange={handleAddressChange}
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />
                             </div>
                         </div>
                         <div className='flex space-x-2'>
-                            <div className="space-y-1">
+                            <div className="w-full space-y-1">
                                 <label htmlFor="landmark" className="text-sm font-medium ml-1">Landmark</label>
-                                <textarea
+                                <input
                                     name="landmark"
                                     value={formData.address.landmark}
-                                    // onChange={handleAddressChange}
+                                    onChange={handleAddressChange}
                                     placeholder='Landmark.....'
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />

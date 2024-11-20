@@ -11,11 +11,9 @@ type Data = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    await connectdb(); // Establish database connection
-    console.log('ok1')
+    await connectdb();
 
     if (req.method === 'POST') {
-        console.log('ok2')
         const { user }: { user: Partial<IUser> } = req.body;
         try {
             // Step 2: Check if the user already exists
@@ -26,7 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
             // Step 3: Hash Password
             const customSalt: string = process.env.MY_SECRET_PHRASE || "";
-            console.log('custum salt', customSalt)
             // Step 1: Hash all user passwords concurrently
             const saltedPassword = customSalt + user.password;
             const hashedPassword = await bcrypt.hash(saltedPassword, 8); // 8 salt rounds for speed
