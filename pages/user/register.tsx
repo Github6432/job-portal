@@ -81,7 +81,7 @@ const CreateUser: React.FC = () => {
                 });
             }
         } catch (error) {
-            console.error('Request failed:', error);
+            console.log('Request failed:', error);
         }
     };
 
