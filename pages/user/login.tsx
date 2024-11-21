@@ -29,6 +29,8 @@ const Login: React.FC = () => {
             });
             const resData = await response.json();
             const { success, message } = resData;
+            console.log('RESPONSE:',response)
+            console.log('RESDATA',resData)
             if (success) {
                 toast.success(message, {
                     position: "top-center",
