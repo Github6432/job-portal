@@ -37,9 +37,42 @@ const CreateUser: React.FC = () => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
-    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleAddressChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, address: { ...prevData.address, [name]: value, }, }));
+        setFormData((prevData) => ({ ...prevData, address: { ...prevData.address, [name]: value } }));
+        if (name === 'pincode' && value.length === 6) {
+            try {
+                const response = await fetch(`https://api.postalpincode.in/pincode/${value}`);
+                const data = await response.json();
+                if (data[0].Status === 'Success') {
+                    const { District, State, Country } = data[0].PostOffice[0];
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        address: {
+                            ...prevData.address,
+                            city: District,
+                            state: State,
+                            country: Country,
+                        },
+                    }));
+                } else {
+                    toast.error('Invalid pincode. Please try again.', {
+                        position: 'top-center',
+                        autoClose: 1500,
+                        theme: 'light',
+                        transition: Slide,
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching pincode details:', error);
+                toast.error('Error fetching location data.', {
+                    position: 'top-center',
+                    autoClose: 1500,
+                    theme: 'light',
+                    transition: Slide,
+                });
+            }
+        }
     };
 
 
@@ -86,7 +119,7 @@ const CreateUser: React.FC = () => {
     };
 
     return (
-        <div className="w-fit md:w-7/12  mx-auto p-4 my-16 rounded-lg shadow-lg shadow-gray-700">
+        <div className="w-fit md:w-6/12  md:mx-auto mx-2 p-3 my-16 rounded-lg shadow-lg shadow-gray-700">
             <ToastContainer
                 position="top-center"
                 autoClose={1500}
@@ -254,41 +287,6 @@ const CreateUser: React.FC = () => {
                     // <div className="space-y-4 mt-4">
                     <>
                         <div className='flex space-x-2'>
-                            <div className="space-y-1">
-                                <label htmlFor="country" className="text-sm font-medium ml-1">Country</label>
-                                <input
-                                    type="text"
-                                    name="country"
-                                    value={formData.address.country}
-                                    placeholder='Country'
-                                    onChange={handleAddressChange}
-                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                                />
-                            </div>
-                            <div className="space-y-1">
-                                <label htmlFor="state" className="text-sm font-medium ml-1">State</label>
-                                <input
-                                    type="text"
-                                    name="state"
-                                    value={formData.address.state}
-                                    placeholder='State'
-                                    onChange={handleAddressChange}
-                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                                />
-                            </div>
-                            <div className="space-y-1">
-                                <label htmlFor="city" className="text-sm font-medium ml-1">City</label>
-                                <input
-                                    type="text"
-                                    name="city"
-                                    value={formData.address.city}
-                                    placeholder='City'
-                                    onChange={handleAddressChange}
-                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
-                                />
-                            </div>
-                        </div>
-                        <div className='flex space-x-2'>
                             <div className=" w-full space-y-1">
                                 <label htmlFor="village" className="text-sm font-medium ml-1">Village / Town</label>
                                 <input
@@ -320,6 +318,44 @@ const CreateUser: React.FC = () => {
                                     value={formData.address.landmark}
                                     onChange={handleAddressChange}
                                     placeholder='Landmark.....'
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                        </div>
+                        <div className='flex space-x-2'>
+                            <div className="space-y-1">
+                                <label htmlFor="country" className="text-sm font-medium ml-1">Country</label>
+                                <input
+                                    type="text"
+                                    name="country"
+                                    value={formData.address.country}
+                                    placeholder='Country'
+                                    readOnly
+                                    onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label htmlFor="state" className="text-sm font-medium ml-1">State</label>
+                                <input
+                                    type="text"
+                                    name="state"
+                                    value={formData.address.state}
+                                    placeholder='State'
+                                    readOnly
+                                    onChange={handleAddressChange}
+                                    className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
+                                />
+                            </div>
+                            <div className="space-y-1">
+                                <label htmlFor="city" className="text-sm font-medium ml-1">City</label>
+                                <input
+                                    type="text"
+                                    name="city"
+                                    value={formData.address.city}
+                                    placeholder='City'
+                                    readOnly
+                                    onChange={handleAddressChange}
                                     className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                                 />
                             </div>

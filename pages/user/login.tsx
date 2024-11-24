@@ -96,6 +96,7 @@ const Login: React.FC = () => {
                             value={formData.phoneNumber}
                             pattern="\d{10}"
                             required
+                            autoComplete='phoneNumber'
                             onChange={handleChange}
                             className="px-3 py-2 border border-gray-400 rounded bg-transparent"
                         />
