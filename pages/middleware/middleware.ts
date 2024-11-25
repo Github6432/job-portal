@@ -12,6 +12,13 @@ const roleRoutes: Record<string, string[]> = {
 };
 
 export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // Skip HMR and undefined paths
+  if (pathname.startsWith('/_next/') || !pathname) {
+    return NextResponse.next();
+  }
+
   const token = req.cookies.get("token")?.value;
 
   // If no token, redirect to login
@@ -25,7 +32,7 @@ export function middleware(req: NextRequest) {
 
     // Find the allowed roles for the current route
     const allowedRoles = Object.entries(roleRoutes).find(([route]) =>
-      req.nextUrl.pathname.startsWith(route)
+      pathname.startsWith(route)
     )?.[1];
     console.log(allowedRoles, role)
 
@@ -49,5 +56,5 @@ function redirectTo(req: NextRequest, path: string) {
 
 // Middleware will apply to these routes
 export const config = {
-  matcher: ["/admin/:path*", "/dashboard/:path*"],
+  matcher: ["/admin/:path*", "/dashboard/:path*", "!/_next/static/:path*", "!/_next/webpack-hmr"],
 };

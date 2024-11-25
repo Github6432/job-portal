@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
+import { useUser } from '../pages/context/UserContext';
 
 const Navbar: React.FC = () => {
+  const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
+  console.log(user)
 
   const toggleMenu = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -57,9 +60,9 @@ const Navbar: React.FC = () => {
           <Link href="/contact">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Contact</li>
           </Link>
-          <Link href="/user/login">
+          {user ? <li>{user.name}</li> : <Link href="/user/login">
             <li className="hover:text-gray-400 flex items-center border-b-4 border-transparent hover:border-red-700 transition duration-200">Login</li>
-          </Link>
+          </Link>}
         </ul>
 
 
@@ -84,6 +87,10 @@ const Navbar: React.FC = () => {
           </button>
           <div className='mx-auto font-semibold'>My Logo</div>
           <hr className="border-black w-full border" />
+          {user ? <li>{user.name}</li> : <Link href="/user/login">
+            <li className="block py-2 px-4 hover:bg-gray-600 rounded">Login</li>
+          </Link>
+          }
           <Link href="/">
             <li className="block py-2 px-4 hover:bg-gray-600 rounded">Home</li>
           </Link>
@@ -95,9 +102,6 @@ const Navbar: React.FC = () => {
           </Link>
           <Link href="/contact">
             <li className="block py-2 px-4 hover:bg-gray-600 rounded">Contact</li>
-          </Link>
-          <Link href="/user/login">
-            <li className="block py-2 px-4 hover:bg-gray-600 rounded">Login</li>
           </Link>
         </ul>
       )}

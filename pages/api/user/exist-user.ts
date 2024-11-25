@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const existingUser = await User.findOne({ phoneNumber });
 
             if (existingUser) {
-                return res.status(400).json({ vsuccess: false, message: `User with phone number ${phoneNumber} is already registered.`, });
+                return res.status(400).json({ success: false, message: `User with phone number ${phoneNumber} is already registered.`, });
             }
         } catch (error) {
             console.error('Error creating users:', error);
