@@ -3,7 +3,7 @@ import React from 'react'
 const Govtlinks = () => {
     return (
         <>
-            <section className='my-10'>
+            <section className=''>
                 <div className="text-center my-1 p-1 bg-gray-500">All Govt Links</div>
                 <div className='flex text-xs justify-center items-start'>
                     <div className='w-full mx-1'>

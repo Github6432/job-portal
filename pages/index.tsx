@@ -16,11 +16,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className=" mb-10">
+        <div className="">
           <Topmenu />
+          <br />
         </div>
         <div className="">
           <Card />
+          <br />
         </div>
         <div className="">
           <Govtlinks />
