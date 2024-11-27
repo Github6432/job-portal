@@ -7,9 +7,9 @@ import { UserProvider } from "./context/UserContext";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <UserProvider initialUser={pageProps.user}>
+      <UserProvider initialUser={pageProps.userData}>
         <div className="">
-          <Navbar />
+          <Navbar  />
           <br />
           <br />
         </div>

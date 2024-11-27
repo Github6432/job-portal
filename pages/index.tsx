@@ -38,12 +38,15 @@ export default function Home() {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token = context.req.cookies.token || null;
-  let user = null;
+  let userData = null;
   if (token) {
     try {
       // Decode token to get user ID
       const decoded = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
       const userId = decoded.id;
+      if (!userId) {
+        throw new Error('Invalid token structure');
+      }
 
       // Send ID to API
       const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user/getuser`, {
@@ -55,12 +58,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         body: JSON.stringify({ id: userId }),  // Send user ID in the request body
       });
 
-      user = await response.json();
+      userData = await response.json();
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
   }
 
-  return { props: { user } };
+  return { props: { userData } };
 };
 
