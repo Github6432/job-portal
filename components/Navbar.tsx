@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import ThemeToggle from './ThemeToggle';
-import { useAppDispatch, useAppSelector } from '@/pages/store/hooks';
-import { RootState } from '@/pages/store';
-import { setUser } from '@/pages/store/user/userSlice';
 import Cookies from 'js-cookie';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setUser } from '@/store/user/userSlice';
+import { RootState } from '@/store';
 
 interface User {
   success: boolean;
