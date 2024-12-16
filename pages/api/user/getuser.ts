@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json({ success: true, user });
     } catch (error) {
       console.error('Error getting user:', error);
-      if ((error as any).name === 'TokenExpiredError') {
+      if (error instanceof jwt.TokenExpiredError) {
         return res.status(401).json({ success: false, message: 'Token has expired' });
       }
       return res.status(500).json({ success: false, message: 'Internal Server Error When Get User', error });
