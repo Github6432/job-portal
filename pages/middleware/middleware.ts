@@ -56,5 +56,11 @@ function redirectTo(req: NextRequest, path: string) {
 
 // Middleware will apply to these routes
 export const config = {
-  matcher: ["/admin/:path*", "/dashboard/:path*", "!/_next/static/:path*", "!/_next/webpack-hmr"],
+  matcher: [
+    "/admin/:path*",  // Matches anything under /admin
+    "/dashboard/:path*",  // Matches anything under /dashboard
+    "!/_next/static/:path*", // Excludes static files
+    "!/_next/webpack-hmr", // Excludes HMR requests
+  ],
 };
+
