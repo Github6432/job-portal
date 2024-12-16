@@ -29,3 +29,18 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+  deploy:
+    if: github.ref == 'refs/heads/master' # Deploy only on master
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy application
+        run: |
+          echo "Deploying to production..."
+          # Add your deployment command here (e.g., upload to a server or cloud service)
