@@ -4,8 +4,8 @@ import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-import { useAppDispatch } from '../store/hooks';
-import { setUser } from '../store/user/userSlice';
+import { useAppDispatch } from '@/store/hooks';
+import { setUser } from '@/store/user/userSlice';
 
 const Login: React.FC = () => {
     const router = useRouter();
