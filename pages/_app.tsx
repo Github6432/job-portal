@@ -1,22 +1,28 @@
 import Navbar from "@/components/Navbar";
 import "@/styles/globals.css";
-
 import type { AppProps } from "next/app";
-import { UserProvider } from "./context/UserContext";
+import { Provider } from "react-redux";
+import store from "./store";
 
 export default function App({ Component, pageProps }: AppProps) {
+
+
+
+
   return (
     <>
-      <UserProvider initialUser={pageProps.userData}>
+      <Provider store={store}>
         <div className="">
-          <Navbar  />
+          <Navbar />
           <br />
           <br />
         </div>
         <div className="md:mx-auto mx-2 md:w-3/4">
           <Component {...pageProps} />
         </div>
-      </UserProvider>
+      </Provider>
     </>
   );
 }
+
+

@@ -46,11 +46,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await user.save();
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET!, {
-      expiresIn: "10d",
-    });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, { expiresIn: "10d" });
     // Set the token as an HTTP-only cookie
-    res.setHeader("Set-Cookie", `token=${token}; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=${10 * 24 * 60 * 60}`);
+    res.setHeader("Set-Cookie", `token=${token}; HttpOnly; Path=/; Secure; SameSite=Strict; Max-Age=${7 * 24 * 60 * 60}`);
     res.status(201).json({ success: true, message: 'Logged IN Successfully', token, currentLogin: { timestamp: currentTime, ipAddress }, lastLogin: previousLogin || "No previous login available", loginHistory: user.loginHistory, });
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal server error", error });

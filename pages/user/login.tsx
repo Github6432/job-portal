@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-
+import Cookies from 'js-cookie';
 import Link from 'next/link';
+import { useAppDispatch } from '../store/hooks';
+import { setUser } from '../store/user/userSlice';
 
 const Login: React.FC = () => {
     const router = useRouter();
+    const dispatch = useAppDispatch();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         phoneNumber: '',
@@ -28,9 +31,8 @@ const Login: React.FC = () => {
                 body: JSON.stringify({ formData }),
             });
             const resData = await response.json();
-            const { success, message } = resData;
-            console.log('RESPONSE:',response)
-            console.log('RESDATA',resData)
+            const { success, message, token } = resData;
+            console.log('RESDATA', resData)
             if (success) {
                 toast.success(message, {
                     position: "top-center",
@@ -43,6 +45,22 @@ const Login: React.FC = () => {
                     theme: "light",
                     transition: Slide,
                 });
+                // Step 2: Fetch user data using the token
+                const userResponse = await fetch('/api/user/getuser', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const userData = await userResponse.json();
+                console.log(userData)
+                if (userData.success) {
+                    // Step 3: Save user data to cookies
+                    Cookies.set('userData', JSON.stringify(userData), { expires: 7, path: '/' });
+                    dispatch(setUser( userData ));
+                    console.log('LOGINTSX', userData)
+                }
                 setTimeout(() => {
                     router.push('/');
                 }, 1800);
