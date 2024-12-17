@@ -6,7 +6,7 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import ThemeToggle from './ThemeToggle';
 import Cookies from 'js-cookie';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setUser } from '@/store/user/userSlice';
+import { clearUser, setUser } from '@/store/user/userSlice';
 import { RootState } from '@/store';
 
 interface User {
@@ -34,7 +34,6 @@ interface User {
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     const cookieData = Cookies.get('userData');
     if (cookieData) {
@@ -81,6 +80,22 @@ const Navbar: React.FC = () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [isOpen, dropdownVisible]);
+
+  const handleLogout = async () => {
+    console.log('loghj')
+    try {
+      const response = await fetch('/api/auth/logout', {method: 'POST', credentials: 'include' });
+      console.log(response)
+      if (response.ok) {
+        dispatch(clearUser());
+        Cookies.remove('userData');
+        // window.location.href = '/login';
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
 
   return (
     <nav className="px-4 bg-white bg-opacity-95 dark:bg-opacity-95 dark:bg-gray-900 py-3 shadow-xl fixed top-0 left-0 w-full z-10">
@@ -132,9 +147,7 @@ const Navbar: React.FC = () => {
                       </li>
                       <li
                         className="hover:bg-gray-100 px-4 py-2 cursor-pointer"
-                        onClick={() => {
-                          console.log("Logged out");
-                        }}
+                        onClick={handleLogout}
                       >
                         Logout
                       </li>
