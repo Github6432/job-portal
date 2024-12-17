@@ -95,6 +95,7 @@ const Navbar: React.FC = () => {
       console.error('Error during logout:', error);
     }
   };
+  
 
 
   return (
@@ -140,10 +141,10 @@ const Navbar: React.FC = () => {
                   {dropdownVisible && (
                     <ul className="absolute text-sm top-full right-0 mt-2 bg-white dark:bg-black shadow-lg border rounded-md w-40">
                       <li className="hover:bg-gray-100 px-4 py-2 border-b">
-                        <Link href="/user/Profile">Profile</Link>
+                        <Link href="/Profile">Profile</Link>
                       </li>
                       <li className="hover:bg-gray-100 px-4 py-2 border-b">
-                        <Link href="/dashboard">Dashboard</Link>
+                        <Link href={`/${userData?.user?.role}/Dashboard`}>Dashboard</Link>
                       </li>
                       <li
                         className="hover:bg-gray-100 px-4 py-2 cursor-pointer"

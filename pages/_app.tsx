@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Navbar />
           <br />
           <br />
+          <br />
         </div>
         <div className="md:mx-auto mx-2 md:w-3/4">
           <Component {...pageProps} />
