@@ -1,6 +1,7 @@
 // utils/fetchUserRole.ts
 
 export async function fetchUserRole(userId: {}, token: string) {
+    console.log(userId, token)
     try {
         const apiUrl = `${process.env.NEXT_PUBLIC_HOST}/api/user/getuser`;
         const res = await fetch(apiUrl, {
@@ -13,7 +14,11 @@ export async function fetchUserRole(userId: {}, token: string) {
         });
 
         if (!res.ok) {
+            console.log('not ok res')
             throw new Error('Failed to fetch user role');
+        }else{
+            console.log('ok res')
+
         }
 
         const data = await res.json();
