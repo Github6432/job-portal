@@ -17,7 +17,7 @@ export async function fetchUserRole(userId: {}, token: string) {
         }
 
         const data = await res.json();
-        if(data?.success){
+        if (data?.success) {
             return data?.user?.role; // assuming the response contains a "role" field
         }
 
