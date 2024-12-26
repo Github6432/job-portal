@@ -21,6 +21,7 @@ export async function middleware(req: NextRequest) {
     }
 
     const userRole = await fetchUserRole(userId, token);
+    console.log('USER ROLE', userRole)
 
     if (!userRole) {
       return NextResponse.redirect(new URL("/user/login", req.url));
