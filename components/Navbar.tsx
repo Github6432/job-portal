@@ -191,8 +191,11 @@ const Navbar: React.FC = () => {
           <hr className="border-black w-full border" />
           {userData?.success ?
             (<>
-              <Link href="/user/Profile">
+              <Link href="/Profile">
                 <li className="block py-1 px-4 hover:bg-gray-600 rounded">Profile</li>
+              </Link>
+              <Link href={`/${userData?.user?.role}/Dashboard`}>
+                <li className="block py-1 px-4 hover:bg-gray-600 rounded">Dashboard</li>
               </Link>
             </>
             ) : (
