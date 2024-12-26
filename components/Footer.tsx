@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/f
 
 const Footer = () => {
   return (
-    <footer className=" py-8">
+    <footer className="text-sm py-8">
       <div className="bg-gray-500">Pending work of footer editing</div>
       <div className="container mx-auto px-4">
         {/* Footer Main Section */}
@@ -20,7 +20,7 @@ const Footer = () => {
           {/* Column 2 - Quick Links */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <ul className="flex justify-between">
               <li><a href="#" className="text-sm hover:text-yellow-500">Home</a></li>
               <li><a href="#" className="text-sm hover:text-yellow-500">About</a></li>
               <li><a href="#" className="text-sm hover:text-yellow-500">Services</a></li>
@@ -31,7 +31,7 @@ const Footer = () => {
           {/* Column 3 - Useful Links */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Useful Links</h3>
-            <ul className="space-y-2">
+            <ul className="flex justify-between">
               <li><a href="#" className="text-sm hover:text-yellow-500">Terms & Conditions</a></li>
               <li><a href="#" className="text-sm hover:text-yellow-500">Privacy Policy</a></li>
               <li><a href="#" className="text-sm hover:text-yellow-500">FAQ</a></li>
@@ -42,7 +42,7 @@ const Footer = () => {
           {/* Column 4 - Social Media */}
           <div>
             <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
+            <div className="flex justify-between">
               <a href="#" className="text-sm hover:text-yellow-500">
                 <FaFacebookF />
               </a>
