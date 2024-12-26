@@ -221,7 +221,7 @@ const Navbar: React.FC = () => {
           <Link href="/contact">
             <li className="block py-1 px-4 hover:bg-gray-600 rounded">Contact</li>
           </Link>
-          {userData?.success && <li className="block py-1 px-4 hover:bg-gray-600 rounded">Logout</li>}
+          {userData?.success && <li onClick={handleLogout} className="block py-1 px-4 hover:bg-gray-600 rounded">Logout</li>}
         </ul>
       )}
     </nav>
