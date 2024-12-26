@@ -1,54 +1,50 @@
+import { JWTPayload, jwtVerify } from "jose";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { JWTPayload, jwtVerify } from "jose";
-import { fetchUserRole } from "./utils/fetchUserRole"; // Helper function for role fetching
+import { fetchUserRole } from "./utils/fetchUserRole";
+
+const secretKey = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
-  // If no token is found, respond with 401
   if (!token) {
-    return NextResponse.redirect(new URL("/user/login", req.url)); // Redirect to login
+    return NextResponse.redirect(new URL("/user/login", req.url));
   }
 
   try {
-    const secretKey = new TextEncoder().encode(process.env.JWT_SECRET);
     const { payload }: { payload: JWTPayload } = await jwtVerify(token, secretKey);
 
     const userId = payload?.id;
     if (!userId) {
-      return NextResponse.redirect(new URL("/user/login", req.url)); // Redirect to login
+      return NextResponse.redirect(new URL("/user/login", req.url));
     }
 
-    // Fetch the user's role
     const userRole = await fetchUserRole(userId, token);
-    console.log("USER ROLE:", userRole);
+
+    if (!userRole) {
+      return NextResponse.redirect(new URL("/user/login", req.url));
+    }
 
     const path = req.nextUrl.pathname;
-
-    // Redirect users based on role
-    if (userRole === "admin" && path.startsWith("/admin")) {
-      return NextResponse.next(); // Allow admin to access admin routes
-    } else if (userRole === "user" && path.startsWith("/user")) {
-      return NextResponse.next(); // Allow user to access user routes
-    } else if (userRole === "admin") {
-      return NextResponse.redirect(new URL("/admin/Dashboard", req.url)); // Redirect admin to their dashboard
-    } else if (userRole === "user") {
-      return NextResponse.redirect(new URL("/user/Dashboard", req.url)); // Redirect user to their dashboard
+    if (
+      (userRole === "admin" && path.startsWith("/admin")) 
+    ) {
+      return NextResponse.next();
     }
 
-    // Default response: Redirect unauthorized roles to login
-    return NextResponse.redirect(new URL("/user/login", req.url));
+    return NextResponse.redirect(
+      new URL(
+        userRole === "admin" ? "/admin/Dashboard" : "/user/Dashboard",
+        req.url
+      )
+    );
   } catch (error) {
     console.error("Middleware Error:", error);
-    return NextResponse.redirect(new URL("/user/login", req.url)); // Redirect on error
+    return NextResponse.redirect(new URL("/user/login", req.url));
   }
 }
 
 export const config = {
-  matcher: [
-    "/admin/:path*", // Matches anything under /admin
-    "/user/:path*", // Matches anything under /user
-    "/dashboard", // Matches root dashboard
-  ],
+  matcher: ["/admin/:path*"],
 };
