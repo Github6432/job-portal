@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
 
   // If no token is found, respond with 401
   if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url)); // Redirect to login
+    return NextResponse.redirect(new URL("/user/login", req.url)); // Redirect to login
   }
 
   try {
@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest) {
 
     const userId = payload?.id;
     if (!userId) {
-      return NextResponse.redirect(new URL("/login", req.url)); // Redirect to login
+      return NextResponse.redirect(new URL("/user/login", req.url)); // Redirect to login
     }
 
     // Fetch the user's role
@@ -38,10 +38,10 @@ export async function middleware(req: NextRequest) {
     }
 
     // Default response: Redirect unauthorized roles to login
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/user/login", req.url));
   } catch (error) {
     console.error("Middleware Error:", error);
-    return NextResponse.redirect(new URL("/login", req.url)); // Redirect on error
+    return NextResponse.redirect(new URL("/user/login", req.url)); // Redirect on error
   }
 }
 
