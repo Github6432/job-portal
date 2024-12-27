@@ -255,6 +255,7 @@ const CreateUser: React.FC = () => {
                         onChange={handleChange}
                         className="w-full px-3 py-2 border border-gray-400 rounded bg-transparent"
                     >
+                        <option className='dark:text-gray-500' >Select User Role</option>
                         <option className='dark:text-gray-500' value="user">User</option>
                         <option className='dark:text-gray-500' value="admin">Admin</option>
                     </select>

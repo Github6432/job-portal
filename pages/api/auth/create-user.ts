@@ -34,6 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             // Step 5: Save User to Database
             const savedUser = await newUser.save();
 
+
             // Step 6: Respond to Client
             res.status(201).json({ success: true, user: savedUser, message: 'User registered successfully' });
         } catch (error) {
