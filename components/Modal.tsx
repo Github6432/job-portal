@@ -2,16 +2,18 @@ import React from 'react';
 
 // Define a type for the user object
 interface User {
+  _id: string;
   name: string;
   email: string;
   role: string;
+  createdAt: string;
 }
 
 interface ModalProps {
   isOpen: boolean;
   closeModal: () => void;
   user: User;
-  onSubmit: (updatedUser: User) => void;
+  onSubmit: (updatedUser: User) => Promise<void>;  // Allowing async function
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, closeModal, user, onSubmit }) => {
@@ -32,12 +34,14 @@ const Modal: React.FC<ModalProps> = ({ isOpen, closeModal, user, onSubmit }) => 
     e.preventDefault();
 
     const updatedUser: User = {
+      _id: user._id,  // Include the _id if you need it for the update
       name,
       email,
       role,
+      createdAt: user.createdAt,  // Preserve createdAt if needed
     };
 
-    onSubmit(updatedUser);
+    await onSubmit(updatedUser);
     closeModal();
   };
 
