@@ -4,10 +4,8 @@ import React from 'react';
 const Dashboard: React.FC = () => {
   return (
     <AdminLayout>
-      <div>
-        <h1>Admin Dashboard</h1>
-        <hr className='border-red-400' />
-      </div>
+      <h1 className="text-2xl font-bold">Dashboard</h1>
+      <p>Welcome to the admin dashboard!</p>
     </AdminLayout>
   );
 };
