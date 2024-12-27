@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Handle PUT request (Admin Update User by ID)
   if (req.method === 'PUT') {
     // Ensure the user ID to update is passed as a query parameter
-    const { userId } = req.query;
+    const userId = req.body._id
     if (!userId) {
       return res.status(400).json({ success: false, message: 'User ID is required' });
     }
@@ -20,13 +20,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     // The fields to be updated (these will be in the request body)
-    const { name, email, role, phoneNumber, dob, address, profileImage } = req.body;
+    const { name, email, role, phoneNumber, dob, address, profileImage, middleName, lastName, status } = req.body;
 
     try {
       // Perform the update
       const updatedUser = await User.findByIdAndUpdate(
         userId,
-        { name, email, role, phoneNumber, dob, address, profileImage },
+        { name, email, role, phoneNumber, dob, address, profileImage, middleName, lastName, status },
         { new: true } // This option returns the updated document
       );
 

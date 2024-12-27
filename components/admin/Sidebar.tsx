@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="h-screen w-64 border border-red-300 flex flex-col">
+    <div className="h-screen w-2/12 border border-red-300 flex flex-col">
       <h2 className="text-lg font-bold p-4">Admin Panel</h2>
       <nav className="flex-1">
         <ul>

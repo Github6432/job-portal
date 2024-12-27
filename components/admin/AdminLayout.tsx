@@ -11,7 +11,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       {/* Sidebar */}
       <Sidebar />
       {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="flex-1 p-2">
         {children}
       </div>
     </div>
