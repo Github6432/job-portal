@@ -1,24 +1,37 @@
-// components/Modal.tsx
 import React from 'react';
+
+// Define a type for the user object
+interface User {
+  name: string;
+  email: string;
+  role: string;
+}
 
 interface ModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  user: any; // You can define a user type here
-  onSubmit: (updatedUser: any) => void;
+  user: User;
+  onSubmit: (updatedUser: User) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, closeModal, user, onSubmit }) => {
-  if (!isOpen) return null;
-
   const [name, setName] = React.useState(user.name);
   const [email, setEmail] = React.useState(user.email);
   const [role, setRole] = React.useState(user.role);
 
+  // Sync state with updated props
+  React.useEffect(() => {
+    setName(user.name);
+    setEmail(user.email);
+    setRole(user.role);
+  }, [user]);
+
+  if (!isOpen) return null;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const updatedUser = {
+    const updatedUser: User = {
       name,
       email,
       role,
@@ -67,8 +80,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, closeModal, user, onSubmit }) => 
           </div>
 
           <div className="flex justify-between">
-            <button type="button" onClick={closeModal} className="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+            <button type="button" onClick={closeModal} className="bg-gray-500 text-white px-4 py-2 rounded">
+              Cancel
+            </button>
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+              Update
+            </button>
           </div>
         </form>
       </div>
