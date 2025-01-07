@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 interface ApplicationFee {
     category: string;
@@ -32,7 +32,7 @@ const JobDetailsPage = () => {
     const [job, setJob] = useState<JobDetails | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const router = useRouter();
+    // const router = useRouter();
     // const { id } = router.query;  // Get job ID from URL
     const id = '677944d767e58b53ae06f5fb'
 
@@ -58,6 +58,7 @@ const JobDetailsPage = () => {
                 console.log('RESPOSE',job)
             } catch (error) {
                 setError('Failed to load job details');
+                console.log(error)
             } finally {
                 setLoading(false);
             }
