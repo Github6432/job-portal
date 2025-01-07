@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import User from "@/models/userSchema"; // Adjust path to your schema
-import dbConnect from "@/config/db"; // Your DB connection utility
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import connectdb from "@/config/db";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  await dbConnect();
+  await connectdb();
 
   const { phoneNumber, password } = req.body.formData;
 
